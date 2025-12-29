@@ -16,7 +16,7 @@ CREATE TABLE orders (
   id INT AUTO_INCREMENT PRIMARY KEY,
 
   customer_id INT NOT NULL,
-  user_id INT NULL, -- nếu khách đã đăng nhập
+  user_id INT NULL, 
   total_price INT NOT NULL,
   discount INT DEFAULT 0,
   final_price INT NOT NULL,

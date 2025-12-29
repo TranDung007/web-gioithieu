@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { WrapperContext } from "../../components/Layout";
 import axiosClient from "../../api/axiosClient";
 
-/* ================= LOGIN FORM ================= */
+/* ======form đăng nhập====== */
 const FormSignin = ({ setIsLoged }) => {
   const {
     register,
@@ -30,7 +30,7 @@ const FormSignin = ({ setIsLoged }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: data.email,      // ✅ FIX
+          email: data.email,      
           password: data.password,
         }),
       });
@@ -100,7 +100,7 @@ const FormSignin = ({ setIsLoged }) => {
   );
 };
 
-/* ================= MAIN ================= */
+/* ===== MAIN ==== */
 const Login = () => {
   
   const { isLoged, setIsLoged, logout } = useContext(WrapperContext);
@@ -113,7 +113,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  /* ===== REGISTER ===== */
+  /* ===== Đăng ký ===== */
   const signupSubmit = async (data) => {
     try {
       await axiosClient.post("/auth/register", {

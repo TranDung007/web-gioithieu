@@ -1,8 +1,8 @@
 // auth.controller.js
 const db = require("../config/db");
 
-/* ================= LOGIN ================= */
 exports.login = (req, res) => {
+
   const { email, password } = req.body;
 
   db.query("SELECT * FROM users WHERE email = ?", [email], (err, result) => {
@@ -16,7 +16,7 @@ exports.login = (req, res) => {
 
     const user = result[0];
 
-    // ❗ so sánh trực tiếp (không bcrypt)
+
     if (user.password !== password) {
       return res.status(400).json({ message: "Sai tài khoản hoặc mật khẩu" });
     }
@@ -34,7 +34,7 @@ exports.login = (req, res) => {
   });
 };
 
-/* ================= REGISTER ================= */
+
 exports.register = (req, res) => {
   const { email, password } = req.body;
 
@@ -42,7 +42,7 @@ exports.register = (req, res) => {
     return res.status(400).json({ message: "Thiếu email hoặc mật khẩu" });
   }
 
-  // 1. kiểm tra email tồn tại
+ 
   db.query("SELECT id FROM users WHERE email = ?", [email], (err, result) => {
     if (err) {
       return res.status(500).json({ message: "Lỗi server" });
@@ -52,7 +52,7 @@ exports.register = (req, res) => {
       return res.status(400).json({ message: "Email đã tồn tại" });
     }
 
-    // 2. insert user mới
+
     db.query(
       "INSERT INTO users (email, password) VALUES (?, ?)",
       [email, password],

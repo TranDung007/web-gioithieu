@@ -8,7 +8,7 @@ const getAllProducts = (req, res) => {
       return res.status(500).json({ message: "Lỗi lấy sản phẩm" });
     }
 
-    // Chuyển dữ liệu MySQL → format giống mock frontend
+
     const products = results.map((item) => ({
       id: item.id,
       name: item.name,

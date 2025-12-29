@@ -4,39 +4,78 @@ import "./Header.css";
 import { useContext, useEffect, useState } from "react";
 import { WrapperContext } from "../Layout";
 
-const Avatar = () => (
-  <FaUser style={{ color: "#fff" }} />
-);
+const Avatar = ({ avartar }) => {
+  return (
+    <div className="avatar">
+      <img
+        src={avartar}
+        alt="avatar"
+        style={{
+          width: "25px",
+          height: "25px",
+          borderRadius: "50%",
+          objectFit: "cover",
+        }}
+      />
+    </div>
+  );
+};
 
 const Header = () => {
-  const { cartList, setIsShowCart, isLoged } =
+  const { cartList, setIsShowCart, isLoged, userList } =
     useContext(WrapperContext);
+  const totalQuantity = cartList.reduce((acc, cur) => {
+    return acc + cur.quantity;
+  }, 0);
 
-  const totalQuantity = cartList.reduce(
-    (acc, cur) => acc + cur.quantity,
-    0
-  );
-
-  const [isShowSide, setIsShowSide] = useState(false);
-
-  useEffect(() => {
-    const headerEle = document.querySelector("header");
-    let lastScrollTop = 0;
-
-    const onScroll = () => {
-      const st = window.pageYOffset || document.documentElement.scrollTop;
-      if (st > lastScrollTop) {
-        headerEle.style.transform = "translateY(-100%)";
-      } else {
-        headerEle.style.transform = "translateY(0)";
-      }
-      lastScrollTop = st <= 0 ? 0 : st;
-    };
-
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+ useEffect(() => {
+     const headerEle = document.querySelector("header");
+ 
+     var lastScrollTop = 0;
+ 
+     window.addEventListener(
+       "scroll",
+       function () {
+         var st = window.pageYOffset || document.documentElement.scrollTop;
+         if (st > lastScrollTop) {
+           headerEle.style.transform = "translateY(-100%)";
+         } else {
+           headerEle.style.transform = "translateY(0)";
+           headerEle.classList.add("scroll-top");
+         }
+         lastScrollTop = st > 0 ? st : 0;
+ 
+         if (st == 0) {
+           headerEle.classList.add("bg-transparent");
+           headerEle.classList.remove("scroll-top");
+         } else {
+           headerEle.classList.remove("bg-transparent");
+         }
+       },
+       false
+     );
+   }, []);
+ 
+   const [isShowSide, setIsShowSide] = useState(false);
+ 
+   const showCartList = () => {
+     setIsShowCart(true);
+   };
+ 
+   const headerClick = (e) => {
+     const clickItem = e.target.closest(".nav-item");
+ 
+     document.querySelector(".nav-item.active")?.classList.remove("active");
+     clickItem.classList.add("active");
+     setIsShowSide(false);
+   };
+ 
+   const userLoged = userList.find(
+     (user) => user.signupEmail == isLoged.user.signupEmail
+   );
+ 
+   console.log(userList);
+ 
   return (
     <header>
       <div className="container">

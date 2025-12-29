@@ -17,7 +17,7 @@ app.use("/api/orders", orderRoutes);
 
 
 app.get("/", (req, res) => {
-  res.json({ message: "Backend Coffee API is running 🚀" });
+  res.json({ message: "Backend Coffee API is running " });
 });
 
 module.exports = app;

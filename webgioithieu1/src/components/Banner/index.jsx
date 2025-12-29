@@ -93,7 +93,7 @@ const CarouselContainer = () => {
               className="banner-subheading go-to-top"
               style={{ "--order": 3 }}
             >
-              Khuyến mãi đầu xuân Nhâm Dần lên tới 20%
+              Khuyến mãi đầu xuân mới giảm lên tới 20%
             </h4>
             <NavLink to="/menu">
               <Button
